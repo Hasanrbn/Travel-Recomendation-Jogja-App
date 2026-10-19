@@ -1,3 +1,16 @@
-# Tampilan aplikasi dirancang untuk tema terang.
 [theme]
 base = "light"
+primaryColor = "#27386b"
+backgroundColor = "#faf8f4"
+secondaryBackgroundColor = "#efe9dd"
+textColor = "#231c16"
+borderColor = "#e1d9cb"
+
+[theme.sidebar]
+backgroundColor = "#211a14"
+secondaryBackgroundColor = "#2e251d"
+textColor = "#efe7da"
+borderColor = "#3a2f25"
+
+[client]
+toolbarMode = "minimal"
