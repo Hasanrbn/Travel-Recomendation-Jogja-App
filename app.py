@@ -353,19 +353,6 @@ if halaman == "Beranda":
             unsafe_allow_html=True,
         )
 
-    section("Yang perlu diketahui tentang hasilnya")
-    st.markdown(
-        """
-    <ul class="notes">
-        <li>Bobot Anda yang menentukan urutan. Bobot berbeda menghasilkan peringkat berbeda, jadi tidak ada satu jawaban tunggal.</li>
-        <li>Kategori wisata dan popularitas sama-sama dihitung dari rating, sehingga rating ikut memengaruhi tiga kriteria sekaligus.</li>
-        <li>Jarak di bawah 1 km dihitung sebagai 1 km. Tanpa ini, satu destinasi yang hampir tepat di pusat kota membuat nilai jarak semua destinasi lain mendekati nol.</li>
-        <li>Jenis wisata dengan satu atau dua destinasi, misalnya Seni, bisa mendapat nilai kategori yang ekstrem.</li>
-        <li>Jarak dihitung dari koordinat di dataset ke satu titik di pusat kota, bukan jarak tempuh di jalan.</li>
-    </ul>
-    """,
-        unsafe_allow_html=True,
-    )
 
 
 # ─────────────────────────────────────────────────────────
