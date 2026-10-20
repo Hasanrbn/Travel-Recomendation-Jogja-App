@@ -33,7 +33,7 @@ st.markdown(
 @import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap');
 
 html, body, [data-testid="stApp"] { font-family: 'Public Sans', system-ui, sans-serif; }
-[data-testid="stMainBlockContainer"] { max-width: 1180px; padding-top: 2.2rem; }
+[data-testid="stMainBlockContainer"] { max-width: 1180px; padding-top: 5rem; }
 
 /* Sidebar */
 .brand { font-family: 'Newsreader', Georgia, serif; font-size: 1.45rem; font-weight: 600; line-height: 1.2; }
@@ -190,6 +190,7 @@ def load_data():
     # Baris yang sama persis (selain place_id) hanya dihitung sekali.
     isi = [c for c in df.columns if c != "place_id"]
     df = df.drop_duplicates(subset=isi).reset_index(drop=True)
+    df["type"] = df["type"].str.replace(r"\bDan\b", "dan", regex=True)
 
     df["lat"] = df["latitude"].apply(fix_lat)
     df["lon"] = df["longitude"].apply(fix_lon)
@@ -221,7 +222,7 @@ KRITERIA = {
 
 # Warna jenis wisata untuk grafik dan peta: enam jenis terbanyak, sisanya satu warna abu-abu.
 WARNA_JENIS = {
-    "Budaya Dan Sejarah": "#27386b",
+    "Budaya dan Sejarah": "#27386b",
     "Alam": "#3f6e4f",
     "Agrowisata": "#b88a2a",
     "Buatan": "#8a3f6e",
@@ -435,7 +436,7 @@ elif halaman == "Hitung SPK":
         filter_jenis = st.multiselect(
             "Jenis wisata",
             options=sorted(df_raw["type"].unique()),
-            default=["Alam", "Budaya Dan Sejarah", "Pantai"],
+            default=["Alam", "Budaya dan Sejarah", "Pantai"],
             placeholder="Semua jenis",
         )
     with col_f2:
@@ -511,7 +512,7 @@ elif halaman == "Hitung SPK":
                         "rating": "Rating",
                         "htm": "Tiket",
                         "jarak_km": "Jarak",
-                        "kategori": "Nilai kategori",
+                        "kategori": "Kategori",
                         "popularitas": "Popularitas",
                     }
                 )
@@ -525,12 +526,22 @@ elif halaman == "Hitung SPK":
                             "Rating": lambda v: dec(v, 1),
                             "Tiket": rupiah,
                             "Jarak": lambda v: dec(v, 1) + " km",
-                            "Nilai kategori": lambda v: dec(v, 2),
+                            "Kategori": lambda v: dec(v, 2),
                             "Skor SAW": lambda v: dec(v, 4),
                         }
                     ),
                     width="stretch",
                     height=460,
+                    column_config={
+                        "Destinasi": st.column_config.Column(width=255),
+                        "Jenis": st.column_config.Column(width=125),
+                        "Skor SAW": st.column_config.Column(width=78),
+                        "Rating": st.column_config.Column(width=62),
+                        "Tiket": st.column_config.Column(width=72),
+                        "Jarak": st.column_config.Column(width=72),
+                        "Kategori": st.column_config.Column(width=72),
+                        "Popularitas": st.column_config.Column(width=92),
+                    },
                 )
 
                 section("Tiga teratas")
